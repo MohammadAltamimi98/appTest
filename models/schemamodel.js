@@ -16,6 +16,9 @@ const artSchema = mongoose.Schema({
 
 });
 
-const artmodel = mongoose.model('artmodelmongoose', artSchema);
+const artpeiceModel = mongoose.model('artSchema', artSchema);
 
-module.exports = { artmodel };
+module.exports = artpeiceModel;
+
+
+
