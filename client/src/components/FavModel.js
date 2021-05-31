@@ -20,7 +20,7 @@ export class FavModel extends Component {
                                     <Button variant="primary" onClick={e => this.props.deleteFav(value.slug)} >Delete</Button>
                                     <br />
                                     <br />
-                                    <Button variant="primary" onClick={e => this.props.updateFav(value.slug, value.title, value.thumbnail)}>Update</Button>
+                                    <Button variant="primary" onClick={e => this.props.showUpdateForm(value.slug, value.title, value.thumbnail)}>Update</Button>
                                 </Card.Body>
                             </Card>
                             <br />

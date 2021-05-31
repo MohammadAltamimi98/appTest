@@ -7,15 +7,14 @@ export class UpdateForm extends Component {
         return (
             <div>
 
-
-                <Form>
+                <Form onSubmit={this.props.updateItem}>
                     <Form.Group >
                         <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" placeholder="Enter title" />
+                        <Form.Control type="text" onChange={this.props.updatetitle} placeholder="Enter title" value={this.props.title} />
                     </Form.Group>
                     <Form.Group >
                         <Form.Label>Thumbnail</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Thumbnail" />
+                        <Form.Control type="text" onChange={this.props.updatethumbnail} placeholder="Enter Thumbnail" value={this.props.thumbnail} />
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         Submit Changes

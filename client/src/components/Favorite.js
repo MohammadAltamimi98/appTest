@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import FavModel from './FavModel'
+import UpdateForm from './UpdateForm'
 
 export class Favorite extends Component {
 
@@ -9,10 +10,10 @@ export class Favorite extends Component {
         this.state = {
             url: process.env.REACT_APP_SERVER_URL,
             FavData: [],
-            showUpdate: false,
+            showForm: false,
             title: '',
             thumbnail: '',
-            slugName: '',
+            slug: '',
         }
     };
 
@@ -35,22 +36,60 @@ export class Favorite extends Component {
             FavData: deleteFav.data
         })
 
-
+        this.componentDidMount();
     }
-    updateStuff = (e) => {
+
+
+
+    showUpdateForm = (slug, title, thumbnail) => {
         this.setState({
-            title: e.target.value,
-            thumbnail: e.target.value
-        })
+            showForm: true,
+            title: title,
+            slug: slug,
+            thumbnail: thumbnail
+        });
+    }
+
+    updatetitle = (e) => this.setState({ title: e.target.value })
+    updatethumbnail = (e) => this.setState({ thumbnail: e.target.value })
+
+    updateItem = async (e) => {
+        e.preventDefault();
+        const url = `${process.env.REACT_APP_SERVER_URL}/art/favorite/${this.state.slug}`;
+        await axios.put(url, {
+            title: this.state.title,
+            thumbnail: this.state.thumbnail,
+        });
+
+
+        this.setState({
+            showForm: false,
+        });
+
+        this.componentDidMount();
     }
 
 
-    updateFav = async (e) => {
 
-    }
+
 
     render() {
-        return (<FavModel FavData={this.state.FavData} deleteFav={this.deleteFav} />)
+        return (<>
+            <FavModel FavData={this.state.FavData} deleteFav={this.deleteFav}
+                showUpdateForm={this.showUpdateForm} />
+            {
+                this.state.showForm &&
+                <> <UpdateForm
+                    updateItem={this.updateItem}
+                    updatethumbnail={this.updatethumbnail}
+                    updatetitle={this.updatetitle}
+                    title={this.state.title}
+                    thumbnail={this.state.thumbnail}
+
+                />
+                </>
+            }
+        </>)
     }
 }
 
